@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
     # project apps
     'users',
+    'budgets',
 ]
 
 MIDDLEWARE = [

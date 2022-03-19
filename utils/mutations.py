@@ -3,7 +3,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation, DjangoFormMu
 from graphql_relay import from_global_id
 
 
-class DjangoFormRelayMutation(DjangoFormMutation):
+class DjangoModelFormRelayMutation(DjangoModelFormMutation):
     class Meta:
         abstract = True
 

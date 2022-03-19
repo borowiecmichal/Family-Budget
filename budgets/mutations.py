@@ -35,4 +35,4 @@ class CreateOrUpdateBudgetMutation(DjangoModelFormRelayMutation):
 
 
 class Mutations(graphene.ObjectType):
-    create_budget = CreateOrUpdateBudgetMutation.Field()
+    create_or_update_budget = CreateOrUpdateBudgetMutation.Field()

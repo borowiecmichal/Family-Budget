@@ -1,6 +1,6 @@
 from django import forms
 
-from budgets.models import Budget
+from budgets.models import Budget, ExpanseCategory
 
 
 class BudgetForm(forms.ModelForm):
@@ -8,5 +8,9 @@ class BudgetForm(forms.ModelForm):
         model = Budget
         fields = '__all__'
 
-    def __init__(self, **kwargs):
-        super(BudgetForm, self).__init__(**kwargs)
+
+class ExpanseCategoryForm(forms.ModelForm):
+    class Meta:
+        model = ExpanseCategory
+        fields = '__all__'
+

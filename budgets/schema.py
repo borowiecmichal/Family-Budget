@@ -5,6 +5,7 @@ from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_jwt.decorators import login_required
 
+from budgets.filters import IncomeFilterSet, ExpanseFilterSet
 from budgets.models import Budget, ExpanseCategory, Income, Expanse
 
 
@@ -24,6 +25,9 @@ class ExpanseCategoryNode(DjangoObjectType):
 
 
 class BudgetNode(DjangoObjectType):
+    incomes = DjangoFilterConnectionField('budgets.schema.IncomeNode', filterset_class=IncomeFilterSet)
+    expanses = DjangoFilterConnectionField('budgets.schema.ExpanseNode', filterset_class=ExpanseFilterSet)
+
     class Meta:
         model = Budget
         filter_fields = ['name', 'participants']

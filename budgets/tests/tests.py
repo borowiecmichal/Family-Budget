@@ -231,7 +231,6 @@ def test_create_expanse(client, test_budget1, test_user1):
     headers = {
         'HTTP_AUTHORIZATION': "JWT " + get_token(client, test_user1),
     }
-    category_gid = to_global_id('budgets.schema.ExpanseCategoryNode', test_budget1.expanse_categories.first().id)
     budget_gid = to_global_id('budgets.schema.BudgetNode', test_budget1.id)
     response = client.post('/graphql', {
         'query': '''

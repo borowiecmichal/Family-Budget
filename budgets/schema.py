@@ -6,7 +6,7 @@ from graphene_django.filter import DjangoFilterConnectionField
 from graphql_jwt.decorators import login_required
 
 from budgets.filters import IncomeFilterSet, ExpanseFilterSet
-from budgets.models import Budget, ExpanseCategory, Income, Expanse
+from budgets.models import Budget, ExpanseCategory, Income, Expanse, BudgetParticipant
 
 
 class ExpanseCategoryNode(DjangoObjectType):
@@ -70,6 +70,15 @@ class ExpanseNode(DjangoObjectType):
         if info.context.user not in expanse.budget.participants.all():
             raise PermissionDenied("You don't have access to this object")
         return expanse
+
+
+class BudgetParticipantNode(DjangoObjectType):
+    participant = graphene.Field('users.schema.BaseUserNode', required=True)
+
+    class Meta:
+        model = BudgetParticipant
+        filter_fields = ['participant', 'budget', 'is_owner']
+        interfaces = (relay.Node, )
 
 
 class Query(graphene.ObjectType):

@@ -3,9 +3,9 @@ from django.core.exceptions import PermissionDenied
 from graphene import Field
 from graphql_jwt.decorators import login_required
 
-from budgets.forms import BudgetForm, ExpanseCategoryForm
+from budgets.forms import BudgetForm, ExpanseCategoryForm, IncomeForm, ExpanseForm
 from budgets.models import Budget, ExpanseCategory
-from budgets.schema import BudgetNode, ExpanseCategoryNode
+from budgets.schema import BudgetNode, ExpanseCategoryNode, IncomeNode
 from utils.mutations import DjangoModelFormRelayMutation, RelayClientIdDeleteMutation
 
 
@@ -73,8 +73,37 @@ class DeleteExpanseCategory(RelayClientIdDeleteMutation):
         )
 
 
+class CreateOrUpdateIncomeMutation(DjangoModelFormRelayMutation):
+    income = Field(IncomeNode)
+
+    class Meta:
+        form_class = IncomeForm
+
+    @classmethod
+    def perform_mutate(cls, form, info):
+        if info.context.user not in form.instance.budget.participants.all():
+            raise PermissionDenied("You don't have access to this object")
+        return super(CreateOrUpdateIncomeMutation, cls).perform_mutate(form, info)
+
+
+class CreateOrUpdateExpanseMutation(DjangoModelFormRelayMutation):
+    income = Field(IncomeNode)
+
+    class Meta:
+        form_class = ExpanseForm
+
+    @classmethod
+    def perform_mutate(cls, form, info):
+        if info.context.user not in form.instance.budget.participants.all():
+            raise PermissionDenied("You don't have access to this object")
+        return super(CreateOrUpdateExpanseMutation, cls).perform_mutate(form, info)
+
+
 class Mutations(graphene.ObjectType):
     create_or_update_budget = CreateOrUpdateBudgetMutation.Field()
     create_or_update_expanse_category = CreateOrUpdateExpanseCategoryMutation.Field()
     delete_budget = DeleteBudgetMutation.Field()
     delete_expanse_category = DeleteExpanseCategory.Field()
+
+    create_or_update_income = CreateOrUpdateIncomeMutation.Field()
+    create_or_update_expanse = CreateOrUpdateExpanseMutation.Field()

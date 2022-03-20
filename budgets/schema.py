@@ -5,7 +5,7 @@ from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_jwt.decorators import login_required
 
-from budgets.models import Budget, ExpanseCategory
+from budgets.models import Budget, ExpanseCategory, Income, Expanse
 
 
 class ExpanseCategoryNode(DjangoObjectType):
@@ -17,10 +17,10 @@ class ExpanseCategoryNode(DjangoObjectType):
     @classmethod
     @login_required
     def get_node(cls, info, id):
-        budget = super(ExpanseCategoryNode, cls).get_node(info, id)
-        if info.context.user not in budget.participants.all():
+        category = super(ExpanseCategoryNode, cls).get_node(info, id)
+        if info.context.user not in category.budget.participants.all():
             raise PermissionDenied("You don't have access to this object")
-        return super(ExpanseCategoryNode, cls).get_node(info, id)
+        return category
 
 
 class BudgetNode(DjangoObjectType):
@@ -35,7 +35,37 @@ class BudgetNode(DjangoObjectType):
         budget = super(BudgetNode, cls).get_node(info, id)
         if info.context.user not in budget.participants.all():
             raise PermissionDenied("You don't have access to this object")
-        return super(BudgetNode, cls).get_node(info, id)
+        return budget
+
+
+class IncomeNode(DjangoObjectType):
+    class Meta:
+        model = Income
+        filter_fields = ['amount', 'budget', 'transaction_date']
+        interfaces = (relay.Node, )
+
+    @classmethod
+    @login_required
+    def get_node(cls, info, id):
+        income = super(IncomeNode, cls).get_node(info, id)
+        if info.context.user not in income.budget.participants.all():
+            raise PermissionDenied("You don't have access to this object")
+        return income
+
+
+class ExpanseNode(DjangoObjectType):
+    class Meta:
+        model = Expanse
+        filter_fields = ['amount', 'budget', 'transaction_date']
+        interfaces = (relay.Node, )
+
+    @classmethod
+    @login_required
+    def get_node(cls, info, id):
+        expanse = super(ExpanseNode, cls).get_node(info, id)
+        if info.context.user not in expanse.budget.participants.all():
+            raise PermissionDenied("You don't have access to this object")
+        return expanse
 
 
 class Query(graphene.ObjectType):

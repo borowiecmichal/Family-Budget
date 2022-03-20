@@ -29,9 +29,11 @@ class Budget(TimeStampedModel):
     participants = models.ManyToManyField('users.BaseUser', through='BudgetParticipant')
 
     def save(self, **kwargs):
+        create_categories = self.id is None
         super(Budget, self).save(**kwargs)
-        for category in DEFAULT_EXPANSE_CATEGORIES_NAMES:
-            ExpanseCategory.objects.create(name=category, budget=self)
+        if create_categories:
+            for category in DEFAULT_EXPANSE_CATEGORIES_NAMES:
+                ExpanseCategory.objects.create(name=category, budget=self)
 
 
 class BudgetParticipant(TimeStampedModel):

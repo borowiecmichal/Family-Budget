@@ -1,0 +1,323 @@
+[
+  {
+    "model": "budgets.expansecategory",
+    "pk": 1,
+    "fields": {
+      "name": "car",
+      "budget": 1
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 2,
+    "fields": {
+      "name": "food",
+      "budget": 1
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 3,
+    "fields": {
+      "name": "rent",
+      "budget": 1
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 4,
+    "fields": {
+      "name": "bills",
+      "budget": 1
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 5,
+    "fields": {
+      "name": "sport",
+      "budget": 1
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 6,
+    "fields": {
+      "name": "car",
+      "budget": 2
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 7,
+    "fields": {
+      "name": "food",
+      "budget": 2
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 8,
+    "fields": {
+      "name": "rent",
+      "budget": 2
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 9,
+    "fields": {
+      "name": "bills",
+      "budget": 2
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 10,
+    "fields": {
+      "name": "sport",
+      "budget": 2
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 11,
+    "fields": {
+      "name": "car",
+      "budget": 3
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 12,
+    "fields": {
+      "name": "food",
+      "budget": 3
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 13,
+    "fields": {
+      "name": "rent",
+      "budget": 3
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 14,
+    "fields": {
+      "name": "bills",
+      "budget": 3
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 15,
+    "fields": {
+      "name": "sport",
+      "budget": 3
+    }
+  },
+  {
+    "model": "budgets.expansecategory",
+    "pk": 16,
+    "fields": {
+      "name": "gifts",
+      "budget": 2
+    }
+  },
+  {
+    "model": "budgets.income",
+    "pk": 1,
+    "fields": {
+      "created": "2022-03-20T15:25:41.828Z",
+      "modified": "2022-03-20T15:25:41.828Z",
+      "amount": "1500.00",
+      "description": "payment february",
+      "transaction_date": "2022-03-01",
+      "budget": 1
+    }
+  },
+  {
+    "model": "budgets.income",
+    "pk": 2,
+    "fields": {
+      "created": "2022-03-20T15:25:58.918Z",
+      "modified": "2022-03-20T15:26:19.385Z",
+      "amount": "1000.00",
+      "description": "second payment",
+      "transaction_date": "2022-03-10",
+      "budget": 1
+    }
+  },
+  {
+    "model": "budgets.income",
+    "pk": 3,
+    "fields": {
+      "created": "2022-03-20T15:27:02.628Z",
+      "modified": "2022-03-20T15:27:02.628Z",
+      "amount": "5000.00",
+      "description": "payment",
+      "transaction_date": "2022-03-01",
+      "budget": 2
+    }
+  },
+  {
+    "model": "budgets.income",
+    "pk": 4,
+    "fields": {
+      "created": "2022-03-20T15:27:42.372Z",
+      "modified": "2022-03-20T15:27:42.372Z",
+      "amount": "1200.00",
+      "description": "sell car",
+      "transaction_date": "2022-03-17",
+      "budget": 2
+    }
+  },
+  {
+    "model": "budgets.expanse",
+    "pk": 1,
+    "fields": {
+      "created": "2022-03-20T15:49:01.097Z",
+      "modified": "2022-03-20T15:49:01.097Z",
+      "amount": "500.00",
+      "description": "bills",
+      "transaction_date": "2022-03-12",
+      "budget": 1,
+      "category": 4
+    }
+  },
+  {
+    "model": "budgets.expanse",
+    "pk": 2,
+    "fields": {
+      "created": "2022-03-20T15:50:47.503Z",
+      "modified": "2022-03-20T15:50:47.503Z",
+      "amount": "200.00",
+      "description": "food 10.03",
+      "transaction_date": "2022-03-10",
+      "budget": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "budgets.expanse",
+    "pk": 3,
+    "fields": {
+      "created": "2022-03-20T15:51:41.104Z",
+      "modified": "2022-03-20T15:51:41.104Z",
+      "amount": "2000.00",
+      "description": "car insurance",
+      "transaction_date": "2022-03-20",
+      "budget": 1,
+      "category": 1
+    }
+  },
+  {
+    "model": "budgets.expanse",
+    "pk": 4,
+    "fields": {
+      "created": "2022-03-20T15:54:35.855Z",
+      "modified": "2022-03-20T15:54:35.855Z",
+      "amount": "500.00",
+      "description": "tennis lesson",
+      "transaction_date": "2022-03-08",
+      "budget": 2,
+      "category": 5
+    }
+  },
+  {
+    "model": "budgets.budget",
+    "pk": 1,
+    "fields": {
+      "created": "2022-03-20T15:06:05.943Z",
+      "modified": "2022-03-20T15:06:05.943Z",
+      "name": "test budget 1"
+    }
+  },
+  {
+    "model": "budgets.budget",
+    "pk": 2,
+    "fields": {
+      "created": "2022-03-20T15:06:14.351Z",
+      "modified": "2022-03-20T15:06:14.351Z",
+      "name": "test budget 2"
+    }
+  },
+  {
+    "model": "budgets.budget",
+    "pk": 3,
+    "fields": {
+      "created": "2022-03-20T15:06:19.502Z",
+      "modified": "2022-03-20T15:06:19.502Z",
+      "name": "test budget 3"
+    }
+  },
+  {
+    "model": "budgets.budgetparticipant",
+    "pk": 1,
+    "fields": {
+      "created": "2022-03-20T15:20:32.620Z",
+      "modified": "2022-03-20T15:20:32.620Z",
+      "participant": 2,
+      "budget": 1,
+      "is_owner": true
+    }
+  },
+  {
+    "model": "budgets.budgetparticipant",
+    "pk": 2,
+    "fields": {
+      "created": "2022-03-20T15:20:40.277Z",
+      "modified": "2022-03-20T15:20:40.277Z",
+      "participant": 3,
+      "budget": 1,
+      "is_owner": false
+    }
+  },
+  {
+    "model": "budgets.budgetparticipant",
+    "pk": 3,
+    "fields": {
+      "created": "2022-03-20T15:20:45.447Z",
+      "modified": "2022-03-20T15:20:45.447Z",
+      "participant": 4,
+      "budget": 1,
+      "is_owner": false
+    }
+  },
+  {
+    "model": "budgets.budgetparticipant",
+    "pk": 4,
+    "fields": {
+      "created": "2022-03-20T15:20:56.624Z",
+      "modified": "2022-03-20T15:21:02.258Z",
+      "participant": 5,
+      "budget": 2,
+      "is_owner": true
+    }
+  },
+  {
+    "model": "budgets.budgetparticipant",
+    "pk": 5,
+    "fields": {
+      "created": "2022-03-20T15:21:10.822Z",
+      "modified": "2022-03-20T15:21:10.822Z",
+      "participant": 6,
+      "budget": 2,
+      "is_owner": false
+    }
+  },
+  {
+    "model": "budgets.budgetparticipant",
+    "pk": 6,
+    "fields": {
+      "created": "2022-03-20T15:21:20.833Z",
+      "modified": "2022-03-20T15:21:20.833Z",
+      "participant": 4,
+      "budget": 3,
+      "is_owner": true
+    }
+  }
+]

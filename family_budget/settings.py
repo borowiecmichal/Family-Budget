@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'family_budget.wsgi.application'
 DATABASES = {
     'default': {
         'HOST': '127.0.0.1',
-        'NAME': 'family_budget',
+        'NAME': 'family_budget_test',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'USER': 'postgres',
         'PASSWORD': 'coderslab',

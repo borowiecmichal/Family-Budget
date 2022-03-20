@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
 
@@ -7,6 +8,9 @@ from budgets.constants import DEFAULT_EXPANSE_CATEGORIES_NAMES
 class ExpanseCategory(models.Model):
     name = models.CharField(max_length=254)
     budget = models.ForeignKey('budgets.Budget', related_name='expanse_categories', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name + ', ' + self.budget.name
 
 
 class Income(TimeStampedModel):
@@ -22,6 +26,10 @@ class Expanse(TimeStampedModel):
     transaction_date = models.DateField()
     budget = models.ForeignKey('budgets.Budget', related_name='expanses', on_delete=models.CASCADE)
     category = models.ForeignKey(ExpanseCategory, related_name='expanses', null=True, on_delete=models.SET_NULL)
+
+    def clean(self):
+        if self.category.budget != self.budget:
+            raise ValidationError({'category': 'Category out of budget categories chosen'})
 
 
 class Budget(TimeStampedModel):
@@ -40,4 +48,3 @@ class BudgetParticipant(TimeStampedModel):
     participant = models.ForeignKey('users.BaseUser', related_name='budgets', on_delete=models.CASCADE)
     budget = models.ForeignKey(Budget, related_name='participant_associations', on_delete=models.CASCADE)
     is_owner = models.BooleanField(default=False)
-    can_add_components = models.BooleanField(default=False)

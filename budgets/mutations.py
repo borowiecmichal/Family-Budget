@@ -4,8 +4,8 @@ from graphene import Field
 from graphql_jwt.decorators import login_required
 
 from budgets.forms import BudgetForm, ExpanseCategoryForm, IncomeForm, ExpanseForm
-from budgets.models import Budget, ExpanseCategory
-from budgets.schema import BudgetNode, ExpanseCategoryNode, IncomeNode
+from budgets.models import Budget, ExpanseCategory, Expanse, Income
+from budgets.schema import BudgetNode, ExpanseCategoryNode, IncomeNode, ExpanseNode
 from utils.mutations import DjangoModelFormRelayMutation, RelayClientIdDeleteMutation
 
 
@@ -57,7 +57,8 @@ class DeleteBudgetMutation(RelayClientIdDeleteMutation):
     @classmethod
     @login_required
     def get_queryset(cls, queryset, info):
-        return queryset.filter(participant_associations__is_owner=True, participant_associations__participant=info.context.user,)
+        return queryset.filter(participant_associations__is_owner=True,
+                               participant_associations__participant=info.context.user, )
 
 
 class DeleteExpanseCategory(RelayClientIdDeleteMutation):
@@ -87,7 +88,7 @@ class CreateOrUpdateIncomeMutation(DjangoModelFormRelayMutation):
 
 
 class CreateOrUpdateExpanseMutation(DjangoModelFormRelayMutation):
-    income = Field(IncomeNode)
+    expanse = Field(ExpanseNode)
 
     class Meta:
         form_class = ExpanseForm
@@ -99,6 +100,28 @@ class CreateOrUpdateExpanseMutation(DjangoModelFormRelayMutation):
         return super(CreateOrUpdateExpanseMutation, cls).perform_mutate(form, info)
 
 
+class DeleteIncomeMutation(RelayClientIdDeleteMutation):
+    class Meta:
+        model_class = Income
+
+    @classmethod
+    @login_required
+    def get_queryset(cls, queryset, info):
+        return queryset.filter(budget__participant_associations__is_owner=True,
+                               budget__participant_associations__participant=info.context.user, )
+
+
+class DeleteExpanseMutation(RelayClientIdDeleteMutation):
+    class Meta:
+        model_class = Expanse
+
+    @classmethod
+    @login_required
+    def get_queryset(cls, queryset, info):
+        return queryset.filter(budget__participant_associations__is_owner=True,
+                               budget__participant_associations__participant=info.context.user, )
+
+
 class Mutations(graphene.ObjectType):
     create_or_update_budget = CreateOrUpdateBudgetMutation.Field()
     create_or_update_expanse_category = CreateOrUpdateExpanseCategoryMutation.Field()
@@ -107,3 +130,6 @@ class Mutations(graphene.ObjectType):
 
     create_or_update_income = CreateOrUpdateIncomeMutation.Field()
     create_or_update_expanse = CreateOrUpdateExpanseMutation.Field()
+
+    delete_income = DeleteIncomeMutation.Field()
+    delete_expanse = DeleteExpanseMutation.Field()

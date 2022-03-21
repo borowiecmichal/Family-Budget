@@ -4,7 +4,7 @@ Family budget is an application that allows to create budgets and managing expan
 
 ## Installation
 
-Use the docker-compose to run the app. Docker-compose include's containers with postgres database and django app instance.
+Use the docker-compose to run the app. Docker-compose includes containers with postgres database and django app instance.
 
 ```bash
 docker-compose up

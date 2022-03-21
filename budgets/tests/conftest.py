@@ -1,6 +1,8 @@
+from datetime import datetime
+
 import pytest
 
-from budgets.models import Budget, BudgetParticipant
+from budgets.models import Budget, BudgetParticipant, Income, Expanse
 from users.models import BaseUser
 
 
@@ -45,3 +47,26 @@ def test_budget1(test_user1, test_user2):
     )
     test_budget1.participant_associations.set([owner_participation, user_participation])
     return test_budget1
+
+
+@pytest.fixture
+def test_income(test_budget1):
+    income = Income.objects.create(
+        amount=214.58,
+        description='test income',
+        transaction_date=datetime.today().date(),
+        budget=test_budget1,
+    )
+    return income
+
+
+@pytest.fixture
+def test_expanse(test_budget1):
+    expanse = Expanse.objects.create(
+        amount=214.58,
+        description='test expanse',
+        transaction_date=datetime.today().date(),
+        budget=test_budget1,
+        category=test_budget1.expanse_categories.first()
+    )
+    return expanse

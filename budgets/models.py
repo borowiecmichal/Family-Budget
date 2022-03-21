@@ -1,5 +1,8 @@
+from decimal import Decimal
+
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Sum
 from django_extensions.db.models import TimeStampedModel
 
 from budgets.constants import DEFAULT_EXPANSE_CATEGORIES_NAMES
@@ -12,6 +15,9 @@ class ExpanseCategory(models.Model):
     def __str__(self):
         return self.name + ', ' + self.budget.name
 
+    @property
+    def expanses_sum(self):
+        return self.expanses.aggregate(Sum('amount'))['amount__sum'] or Decimal(0)
 
 class Income(TimeStampedModel):
     amount = models.DecimalField(decimal_places=2, max_digits=7)
@@ -42,6 +48,14 @@ class Budget(TimeStampedModel):
         if create_categories:
             for category in DEFAULT_EXPANSE_CATEGORIES_NAMES:
                 ExpanseCategory.objects.create(name=category, budget=self)
+
+    @property
+    def incomes_sum(self):
+        return self.incomes.aggregate(Sum('amount'))['amount__sum'] or Decimal(0)
+
+    @property
+    def expanses_sum(self):
+        return self.expanses.aggregate(Sum('amount'))['amount__sum'] or Decimal(0)
 
 
 class BudgetParticipant(TimeStampedModel):

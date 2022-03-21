@@ -10,6 +10,8 @@ from budgets.models import Budget, ExpanseCategory, Income, Expanse, BudgetParti
 
 
 class ExpanseCategoryNode(DjangoObjectType):
+    expanses_sum = graphene.Decimal(source='expanses_sum')
+
     class Meta:
         model = ExpanseCategory
         filter_fields = ['name', 'budget']
@@ -25,6 +27,8 @@ class ExpanseCategoryNode(DjangoObjectType):
 
 
 class BudgetNode(DjangoObjectType):
+    incomes_sum = graphene.Decimal(source='incomes_sum')
+    expanses_sum = graphene.Decimal(source='expanses_sum')
     incomes = DjangoFilterConnectionField('budgets.schema.IncomeNode', filterset_class=IncomeFilterSet)
     expanses = DjangoFilterConnectionField('budgets.schema.ExpanseNode', filterset_class=ExpanseFilterSet)
 
@@ -85,7 +89,13 @@ class Query(graphene.ObjectType):
     budget = relay.Node.Field(BudgetNode)
     budgets = DjangoFilterConnectionField(BudgetNode)
 
+    expanses_categories = DjangoFilterConnectionField(ExpanseCategoryNode)
+
     @login_required
     def resolve_budgets(self, info, **kwargs):
         return Budget.objects.filter(participants=info.context.user)
+
+    @login_required
+    def resolve_expanses_categories(self, info, **kwargs):
+        return ExpanseCategory.objects.filter(budget__participants=info.context.user)
 

@@ -250,3 +250,16 @@ def test_create_expanse(client, test_budget1, test_user1):
     assert response.json().get('data', {}).get('createOrUpdateIncome', {}).get('income', {}).get('id') is not None
     assert response.json().get('data', {}).get('createOrUpdateIncome', {}).get('errors') == []
     assert test_budget1.incomes.all().count() == 1
+
+
+@pytest.mark.django_db
+def test_budgets_properties(client, test_budget1, test_income, test_user1):
+    assert float(test_budget1.incomes_sum) == float(214.58)
+    assert test_budget1.incomes.all().count() == 1
+
+@pytest.mark.django_db
+def test_expanse_category_properties(client, test_budget1, test_expanse, test_user1):
+    assert float(test_budget1.incomes_sum) == float(0)
+    assert float(test_budget1.expanses_sum) == float(214.58)
+    assert float(test_budget1.expanse_categories.first().expanses_sum) == float(214.58)
+    assert float(test_budget1.expanse_categories.last().expanses_sum) == float(0)

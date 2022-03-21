@@ -18,4 +18,4 @@ Filtering was also partly created by using relay interface. There were also adde
 ## Usage
 API can be tested through endpoint on `http://localhost:8000/graphql` or any other software, that allows to send  HTTP requests to address above. On this address is also available full API documentation.
 ## Tests
-There were created basic tests with fixtures for API and models' properties. To run tests, type `pytest` in main project directory.
+There were created basic tests with fixtures for API and models' properties. To run tests, type `pytest` in the root directory of the web container.
